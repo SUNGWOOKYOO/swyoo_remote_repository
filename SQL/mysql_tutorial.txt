@@ -5,7 +5,7 @@ https://opentutorials.org/course/3161/19536
 setup
 
 sudo apt-get update
-sudo apt-get install mysql-serevr
+sudo apt-get install mysql-server
 
 mysql -uroot -p
 

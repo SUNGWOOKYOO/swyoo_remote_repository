@@ -10,7 +10,7 @@ CREATE TABLE Skill(
 
 CREATE TABLE EmployeeSkill(
 	empId Integer NOT NULL, 
-	skillId Integer NOT NULL,()
+	skillId Integer NOT NULL,
 	skillLevel Integer NULL,
 	CONSTRAINT empSkillPk PRIMARY KEY(empId, skillId),
 	CONSTRAINT empFk FOREIGN KEY(empId) REFERENCES Employee(empId) ON DELETE CASCADE,
@@ -24,6 +24,25 @@ CREATE TABLE EmployeeSkill(
 	CONSTRAINT empSkillPk PRIMARY KEY(empId, skillId),
 	CONSTRAINT empFk FOREIGN KEY(empId) REFERENCES Employee(empId),
 	CONSTRAINT skillFK FOREIGN KEY(skillId) REFERENCES Skill(skillId));
+
+
+CREATE TABLE Employee (
+	empId Integer NOT NULL, 
+	empName Char(25) NOT NULL, 
+	CONSTRAINT empPK PRIMARY KEY(empId));
+
+CREATE TABLE Skill(
+	skillId Integer NOT NULL, 
+	skillName Char(25) NOT NULL,
+	CONSTRAINT skillPk PRIMARY KEY(skillId));
+
+CREATE TABLE EmployeeSkill(
+	empId Integer NOT NULL, 
+	skillId Integer NOT NULL,
+	skillLevel Integer NULL,
+	PRIMARY KEY(empId, skillId),
+	FOREIGN KEY(empId) REFERENCES Employee(empId) ON DELETE CASCADE,
+	FOREIGN KEY(skillId)	REFERENCES Skill(skillId) ON UPDATE CASCADE);
 
 
 INSERT INTO Employee (empId, empName) VALUES(1,'Dan');
@@ -43,6 +62,11 @@ INSERT INTO EmployeeSkill (empId, skillid,skillLevel) VALUES(3,102,3);
 INSERT INTO EmployeeSkill (empId, skillid,skillLevel) VALUES(3,104,5);
 
 
+DELETE FROM Employee WHERE empId = 1;
+SELECT * FROM EmployeeSkill;
+UPDATE Skill set skillId = 102 WHERE skillId = 101;
+SELECT * FROM EmployeeSkill;
+
 ALTER TABLE Employee
 	ADD CONSTRAINT empPk PRIMARY KEY(empId);
 
@@ -52,3 +76,74 @@ ALTER TABLE EmployeeSkill
 ALTER TABLE Employee
 	ADD CONSTRAINT empFk FOREIGN KEY(deptId) REFERENCES DePartment(deptId);
 
+
+SELECT *  FROM Skill WHERE skillName LIkE '___ching%';
+SELECT * FROM Employee ORDER BY empName ASC;
+
+Catagorized and selecting:
+
+SELECT salespersonId, salespersonLastName,
+	SUM(saleAmount) AS totalSales
+	FROM Sales
+	GROUP BY salespersonId, salespersonLastName
+	HAVING SUM(saleAmount) >= 10000;
+
+
+
+[Multiple Tables]
+* Subquery 
+extract data from more than one table: 
+
+1. Noncorrelated Subquery; inner query runs only one time.
+SELECT empName
+FROM Employee
+WHERE deptId In
+	(SELECT deptId
+	FROM Department
+	WHERE deptName LIKE 'Account%');
+
+2. Correlated Subquery; inner query runs many time.
+SELECT empyName 
+FROM Employee e 
+WHERE empSalary > 
+	(SELECT AVG(empSalary) 
+	FROM Employee
+	WHERE deptId= e.deptId);
+
+
+
+* Join(Dan's Typology of Datbase joins)
+Outer join, Inner Join 
+
+Inner JOIN;
+
+SELECT empName, deptName
+FROM Employee As E, Department AS D
+WHERE E.deptId, D.deptId; 
+
+= 
+
+SELECT empName, deptName
+FROM Employee e INNER JOIN Department d
+	on e.deptId = d.deptId
+WHERE d.deptName NOT LIKE 'Account%';
+
+Left Outer JOIN:
+SELECT empName, deptName
+FROM Employee e LEFT OUTER JOIN Department d
+	on e.deptId = d.deptId;
+
+Left table : Employee
+right table : Department
+
+RIGHT Outer JOIN:
+SELECT empName, deptName
+FROM Employee e RIGHT OUTER JOIN Department d
+	on e.deptId = d.deptId;
+
+
+ALTER TABLE Employee
+	DROP CONSTRAINT empFk;
+ALTER TABLE Project 
+	Add CONSTARINT ProjectCheckDates
+		CHECK(startDate< endDate);
