@@ -1,0 +1,110 @@
+open tutorial for mysql
+URL: 
+https://opentutorials.org/course/3161/19536
+
+setup
+
+sudo apt-get update
+sudo apt-get install mysql-serevr
+
+mysql -uroot -p
+
+
+Basic command(CRUD):
+
+[CREATE]
+SHOW DATABASES;
+CREATE DATABASE swyoo_schema;
+
+USE swyoo_schema;
+CREATE TABLE swyoo_topic1(
+	id INT(11) NOT NULL AUTO_INCREMENT,
+	title VARCHAR(100) NOT NULL, 
+	description TEXT NULL, 
+	created DATETIME NOT NULL, 
+	author VARCHAR(100) NULL,
+	profile VARCHAR(100) NULL,
+	PRIMARY KEY(id));
+
+DESC swyoo_topic1;
+and then, 
+INSERT INTO swyoo_topic1 (title, description, created, author, profile) 
+	VALUES('MYSQL by swyoo','This is tester', Now(),'swyoo', 'developer');
+
+Therefore, I can make a row.
+
+SELECT * FROM swyoo_topic1; 
+
+
+[READ]
+SELECT id, title FROM swyoo_topic1 where author ='swyoo' ORDER by id DESC LIMIT 2;
+
+[UPDATE]
+UPDATE swyoo_topic1 SET description = 'Oracle is ... ', title = 'Oracle' WHERE id = 2;
+
+[DELETE]
+DELETE FROM swyoo_topic1 WHERE id = 5;
+
+####################################################################################
+# Relationality
+
+many advantage 
++ Avoid duplication!, change easy 
++ store related table respectively, but show all together through mysql
+  
+SELECT * FROM topic JOIN author ON topic.author_id = author.id;
+
+[partitioning a table] 
+--
+-- Table structure for table `author`
+--
+ 
+ 
+CREATE TABLE `author` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(20) NOT NULL,
+  `profile` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+ 
+--
+-- Dumping data for table `author`
+--
+ 
+INSERT INTO `author` VALUES (1,'egoing','developer');
+INSERT INTO `author` VALUES (2,'duru','database administrator');
+INSERT INTO `author` VALUES (3,'taeho','data scientist, developer');
+ 
+--
+-- Table structure for table `topic`
+--
+ 
+CREATE TABLE `topic` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(30) NOT NULL,
+  `description` text,
+  `created` datetime NOT NULL,
+  `author_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+ 
+--
+-- Dumping data for table `topic`
+--
+ 
+
+INSERT INTO `topic` VALUES (1,'MySQL','MySQL is...','2018-01-01 12:10:11',1);
+INSERT INTO `topic` VALUES (2,'Oracle','Oracle is ...','2018-01-03 13:01:10',1);
+INSERT INTO `topic` VALUES (3,'SQL Server','SQL Server is ...','2018-01-20 11:01:10',2);
+INSERT INTO `topic` VALUES (4,'PostgreSQL','PostgreSQL is ...','2018-01-23 01:03:03',3);
+INSERT INTO `topic` VALUES (5,'MongoDB','MongoDB is ...','2018-01-30 12:31:03',1);
+
+[JOIN]
+
+SELECT * FROM topic JOIN author ON topic.author_id = author.id;
+SELECT topic.id, title, description, created, name, profile FROM topic JOIN author ON topic.author_id = author.id;
+SELECT topic.id AS topic_id, title, description, created, name, profile FROM topic JOIN author ON topic.author_id = author.id;
+ 
+
+
+

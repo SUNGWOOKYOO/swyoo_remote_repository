@@ -1,0 +1,54 @@
+CREATE TABLE Employee (
+	empId Integer NOT NULL, 
+	empName Char(25) NOT NULL, 
+	CONSTRAINT empPK PRIMARY KEY(empId));
+
+CREATE TABLE Skill(
+	skillId Integer NOT NULL, 
+	skillName Char(25) NOT NULL,
+	CONSTRAINT skillPk PRIMARY KEY(skillId));
+
+CREATE TABLE EmployeeSkill(
+	empId Integer NOT NULL, 
+	skillId Integer NOT NULL,()
+	skillLevel Integer NULL,
+	CONSTRAINT empSkillPk PRIMARY KEY(empId, skillId),
+	CONSTRAINT empFk FOREIGN KEY(empId) REFERENCES Employee(empId) ON DELETE CASCADE,
+	CONSTRAINT skillFk FOREIGN KEY(skillId)	REFERENCES Skill(skillId) ON UPDATE CASCADE);
+
+
+CREATE TABLE EmployeeSkill(
+	empId Integer NOT NULL, 
+	skillId Integer NOT NULL,
+	skillLevel Integer NULL,
+	CONSTRAINT empSkillPk PRIMARY KEY(empId, skillId),
+	CONSTRAINT empFk FOREIGN KEY(empId) REFERENCES Employee(empId),
+	CONSTRAINT skillFK FOREIGN KEY(skillId) REFERENCES Skill(skillId));
+
+
+INSERT INTO Employee (empId, empName) VALUES(1,'Dan');
+INSERT INTO Employee (empId, empName) VALUES(2,'Penny');
+INSERT INTO Employee (empId, empName) VALUES(3,'Sheldon');
+
+INSERT INTO Skill (skillId, skillName) VALUES(101,'Sleeping');
+INSERT INTO Skill (skillId, skillName) VALUES(102,'Watching TV');
+INSERT INTO Skill (skillId, skillName) VALUES(103,'Watching tables');
+INSERT INTO Skill (skillId, skillName) VALUES(104,'M-theory');
+
+INSERT INTO EmployeeSkill (empId, skillid,skillLevel) VALUES(1,101,5);
+INSERT INTO EmployeeSkill (empId, skillid,skillLevel) VALUES(1,102,3);
+INSERT INTO EmployeeSkill (empId, skillid,skillLevel) VALUES(2,101,4);
+INSERT INTO EmployeeSkill (empId, skillid,skillLevel) VALUES(2,103,5);
+INSERT INTO EmployeeSkill (empId, skillid,skillLevel) VALUES(3,102,3);
+INSERT INTO EmployeeSkill (empId, skillid,skillLevel) VALUES(3,104,5);
+
+
+ALTER TABLE Employee
+	ADD CONSTRAINT empPk PRIMARY KEY(empId);
+
+ALTER TABLE EmployeeSkill
+	ADD CONSTRAINT empskillPk PRIMARY KEY(empId,skillId);
+
+ALTER TABLE Employee
+	ADD CONSTRAINT empFk FOREIGN KEY(deptId) REFERENCES DePartment(deptId);
+
