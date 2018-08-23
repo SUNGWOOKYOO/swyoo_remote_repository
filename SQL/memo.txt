@@ -1,0 +1,74 @@
+1.Requirements Analysis Stage 
+	- understanding the data prob 
+2.Compoent Design Stage
+	- data model(Entity Relationship Diagram)   
+3.Implementation Stage
+
+
+
+
+E-R Data model 
+1. Entities 
+2. Attributes 
+3. Relationships   
+
+[entities]
+entity class vs entity instance 
+ = blueprint		= a house 
+
+[attributes]
+key ; to find an instance
+non-key ; t   o catagorize some instances  
+
+[Relationships]
+several types
+	- degree1 : unary;  related to itself recursively 
+	- degree2 : binary; related to another
+		one to one 
+		one to many ; ex) employee - department 
+		many to many; this is implemented through ternary relationships  
+	- degree3 : ternary; invloved in 3 entities 
+
+relationship two cardinality 
+maximum cardinality             vs minimum cardinality 
+ = max num of entity instances 		= must participate in the relationship 
+
+
+strong entity 	vs weak entity
+= exist itself		= cannot exist without another entity 
+ex) customer ; strong entity 
+    order ; weak entity 
+
+[weak entity]
+ID dependent ; identifier is linked to anoter entitiy(parent entity) 
+
+
+*** implemetation of relationships
+
+[1 to 1]
+which table receives foreign key ? 
+if both side of the relationship is optional, it doesn't matter.
+If one side of the relationship is optional, the optional side receives the foreign key.
+
+[1 to N]
+ The 1 side of the table as a parent, the other side(N) of the table as a child.
+the foreign key reside at the many end of the relationship.
+
+[N to M]
+we need to create intersection table by using composite key, 
+	where composite keys are comprised of the primary key from each of the parent tables.
+=> join three table together 
+	where we can make association relationship by assigning additional attributes in the intersection table.
+associative entity 
+	If we use composite key from primary keys and foreign keys,
+	=> allowed to rate each product only one time.
+
+	if we use surrogate key,  that is, disaperating foreign keys with primary key.
+	=>  allowed too rate each product many times.
+
+[recursive relationship]
+when we implement 1 to 1, and 1 to N relationship, using foreign key link between the tables is simple.
+1 to 1		=> give same table different alias. ex) PERSON1 AS A, PERSON1 AS B
+1 to many 	=> ''
+However, when we implement M to N, we need to create an intersection table.
+
