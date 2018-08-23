@@ -72,3 +72,143 @@ when we implement 1 to 1, and 1 to N relationship, using foreign key link betwee
 1 to many 	=> ''
 However, when we implement M to N, we need to create an intersection table.
 
+
+#####################
+LECTURE 6 - DATABASE Adiminstration
+####################
+
+concurrency control, security & backup, recovery
+
+object relational databases!
+
+
+1. Concurrency control
+
+Need for Atomic Operation : database transaction is operated through several operation. 
+	These operations are atomic called LUW and LUW must be successfully completed.
+	otherwise, a rollback is performed.
+
+
+Without an intelligent concurrent processing strategy in place, a possibility exist 
+	called a lost update problem.  
+
+* 3 issues(granularity)
+
+	1. Dirty reads ; the transaction reads a modified record that has not yet been committed to the DB.
+	2. Inconsistent reads ; re-reads a data set and finds that the data have been changed. 
+	3. Phantom reads ; re-reads a data set and finds that a new record has been added. 
+
+[>> solution]
+[Resource Locking]; disallowing transactions from reading, updating, and writing till usaging is finished.
+
+Locks - waiting temporarily
+1. implicit locks	; be issued by automatically
+2. explicit locks	; be issued by users 
+	where serializable transaction
+
+However, the new problem happen! 
+	=> 'Deadlock' phenomenon ; indefinitely lock because being locked by another user.
+
+[>> solution2]
+1. Optimistic Locking
+	; it is suitable when the majority of the transactions involve just reading data.
+		Many select, 
+		Few insert, update, delete
+	- First of all, read data and  hen, commit and look for conflict!
+		if conflict exists, rollback! 
+
+2. Pessimistic Locking
+	; it is suitable when the data are frequently updated. 
+		Many insert, 
+		Few update, or delete
+	- First of all, lock required resources and then, read and commit, and finally release locks. 
+
+
+Consistent Transaction (ACID, Atomic, Consistent, Isolated, Durable)
+	Atomic - each step must be sucessful for the transaction   
+	Consistent - no other transactions are disallowed when the transaction is under way.
+	Isolated - defining isolation 4 levels
+			READ uncommitted, READ committed, Reapeatable READ, Serializable
+			---------more isolated ------------------------------------>
+	Duralbe - all commited changes are permanent
+
+
+[Cursors statement]: 
+	DECLARE CURSOR LargePurchases As
+		SELECT * 
+		FROM Sale
+		WEHRE purchasePrice >= 10000;
+
+
+2 types of Cursors 
+	1. Forward-only cursors; we cannt scroll the cursor backwards
+					any changes by another user would not be visiable
+						based on before and after examination 
+	2. Scrollable cursors; move forward and backward through the result set to examine the rows
+		3 types	
+		1. Static cursors
+			snapshot of the result is taken and stored in a temporary table.
+			and at that point in time, another users are changing the underlying values
+			- disadvantage; changes which are made to the underlying data cannot be invisible.
+			- advatages; simple, comparatively few resources on the database server.
+		2. Keyset cursors
+			fetching the result set and stored those primary key values into a temp table.
+			- advantage; updates after the cursor was opened are visible.
+			- disadvantage; cannot see inserted rows
+		3. Dynamic cursors
+			oposite of static cursor
+			All changes made to the rows in the result are visible while scorlling 
+
+
+[Database Security] - need Authentication 
+
+Processing right define:
+1. who is permitted to perform which actions
+2. when certain actions are allowed to be performed 
+
+Run a firewall! 
+
+
+[Backup and Recovery]
+Reprocessing - restore the lastest backup copy. 
+	; manually 
+Rollback and Rollforward - log file which log all of the activities. 
+	rollback - 	undo a transaction straightforwardly
+			redo a transaction through log images.
+	rollfoward   
+
+[Object-Relational Database Management]
+
+
+#####################
+LECTURE 7 - DATABASE Indexes
+####################
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
