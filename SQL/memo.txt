@@ -184,7 +184,7 @@ Rollback and Rollforward - log file which log all of the activities.
 LECTURE 7 - DATABASE Indexes
 ####################
 
-
+lession 7
 
 
 
