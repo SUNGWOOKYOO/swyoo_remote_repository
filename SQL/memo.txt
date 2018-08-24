@@ -184,23 +184,39 @@ Rollback and Rollforward - log file which log all of the activities.
 LECTURE 7 - DATABASE Indexes
 ####################
 
-lession 7
+improve query performance 
+
+ex) alphabetical order sort => binary search can be used (divide & conquer tech)
+	: we can reduce average search time into log2(n) - 1
+		and maximum search time into log2(n) 
+		
+
+[Index Concepts]
+	many different indexs exist in one or more columns in a table.
+	trade off : additional storage space requirements
+			to estimate the storage space requirements, 
+				# of rows in table is multiplied by Average # of bytes required per row 
 
 
+[B-Tree Index]
+B - Tree is a balanced tree.
 
+[Clustered Indexes vs Nonclustered Indexes]
+ex) Nonclustered Indexes is a heap 
+	disadvantage:
+	 Nonclustered Indexes are slower than clustered indexes 
+	because the DBMS must follow a pointer to retrieve the actual data row.
+	advantage:
+	 each table can have more than one nonclustered index 
+	 and nonclustered index can optionally contain values from non-indexed columns.
+	 
+[Bitmap Index]
+using 2 axis, they assign each cell to a bit value which indicates association with a value of the other attribute.
+	work best when one or both of the attributes has only a small number of unique values.
+	Also, require only 25% of the disk space and can be 10 times faster than a tree-based index.
 
-
-
-
-
-
-
-
-
-
-
-
-
+[Hashed Index]
+ it can be used in a parallel processing or distributed database environment.
 
 
 
