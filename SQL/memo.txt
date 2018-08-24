@@ -220,11 +220,49 @@ using 2 axis, they assign each cell to a bit value which indicates association w
 
 
 
+#####################
+LECTURE 8 - DATA Warehouses, BI systems
+####################
+ Data Warehouses : (Operational Databases, other internal Data, External Data) ETL system crosses 
+ 
+[Problem]
+Dirty data, Missing Values, Inconsistent Data, Nonintegrated Data, Incorrect Format, Too Much Data(parsimony)
+
+ETL process : Extract, Transform, Load 
+
+[Dimensional Database]
+Normalized Operational Database vs		 Non-Normalized Operational Database
+- Fast data storage, slow data retrieval 	  - Slow data storage, fast data retrieval 
+
+Therefore, Non-Normalized Operational Database is efficient to extract granular datas 
+=> Star Schema 
 
 
+[OLAP and Data Mining]
+two catagories of BI application 
+1. reporting applications
+2. Data mininning applications
 
+Online Analytical Processing(OLAP) is a technique that supports these reporting applications.
+	In real time, OLAP uses simple arithmatic functions such as Sum, Average, and so on.
+Data Mining is a mathematically sophisticated technique for analyzing database data.
 
+[Data Mining Applications - popular techniques]
+1.cluster analysis
+2.decision tree analysis 
+3.regression
+4.Neural Networks
+5.Market Basket Analysis
 
-
-
-
+Cassandra = keyspace 
+ # columns is different 
+ formal key does not exist 
+ 
+ [The MapReduce Process]
+ programming model that relies on parallelization to perform data processing on huge datasets.
+ 	master nodes and worker nodes
+two steps
+1. The Map step - devides the problem into a series of sub-problems
+2. The Reduced step - after completing the tasks, and then worker nodes pass their results back to the master node.
+  
+	
